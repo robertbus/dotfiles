@@ -30,8 +30,11 @@ function includeOnMac() {
   fi
 }
 
-# include homeshick files if they exist
+# includes
 include "${HOME}/.homesick/repos/homeshick/homeshick.sh"
 include "${HOME}/.homesick/repos/homeshick/completions/homeshick-completion.bash"
+include "${HOME}/.git-prompt.sh "
+include "${HOME}/.git-completion.bash"
+include "${HOME}/.term_colors"
 include "${HOME}/.bash_prompt"
 includeOnMac "${HOME}/.iterm2_shell_integration.bash"

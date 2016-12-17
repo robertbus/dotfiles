@@ -1,1 +1,31 @@
-# BASH prompt.
+# BASH prompt
+
+__err_ps1() {
+  if [[ $? == 0 ]]; then
+    printf "${RESET}${BOLD}[${GREEN}^.^${RESET}${BOLD}]${RESET}"
+  else
+    printf "${RESET}${BOLD}[${RED}O.o${RESET}${BOLD}]${RESET}"
+  fi
+}
+
+__time_ps1() {
+  printf "${RESET}${BOLD}[$(date +%H:%M)]${RESET}"
+}
+
+GIT_PS1_SHOWDIRTYSTATE=x
+GIT_PS1_SHOWSTASHSTATE=x
+GIT_PS1_SHOWUNTRACKEDFILES=x
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_DESCRIBE_STYLE=branch
+GIT_PS1_SHOWCOLORHINTS=x
+GIT_PS1_STATESEPARATOR=' ('
+
+GIT_PS1_PC_START="\n╭╼ $(__err_ps1) \u@\h:\w on"
+GIT_PS1_PC_END="\n╰──╼ "
+GIT_PS1_PC_PRINTF_FORMAT=' %s)'
+
+PROMPT_COMMAND='\
+  __git_ps1\
+  "${GIT_PS1_PC_START}"\
+  "${GIT_PS1_PC_END}"\
+  "${GIT_PS1_PC_PRINTF_FORMAT}"'
