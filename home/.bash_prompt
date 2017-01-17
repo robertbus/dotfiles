@@ -1,31 +1,75 @@
-# BASH prompt
+# BASH prompt.
 
-__err_ps1() {
+function __git_prompt() {
+    local s=""
+    local branchName=""
+
+    # check if the current directory is in a git repository
+    if [ $(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?) == 0 ]; then
+
+        # check if the current directory is in .git before running git checks
+        if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == "false" ]; then
+
+            # ensure index is up to date
+            git update-index --really-refresh -q &>/dev/null
+
+            # check for uncommitted changes in the index
+            if ! $(git diff --quiet --ignore-submodules --cached); then
+                s="$s+";
+            fi
+
+            # check for unstaged changes
+            if ! $(git diff-files --quiet --ignore-submodules --); then
+                s="$s!";
+            fi
+
+            # check for untracked files
+            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+                s="$s?";
+            fi
+
+            # check for stashed files
+            if $(git rev-parse --verify refs/stash &>/dev/null); then
+                s="$s$";
+            fi
+        fi
+
+        # get the short symbolic ref
+        # if HEAD isn't a symbolic ref, get the short SHA
+        # otherwise, just give up
+        branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+                      git rev-parse --short HEAD 2> /dev/null || \
+                      printf "(unknown)")"
+
+        [ -n "$s" ] && s=" [$s]"
+
+        printf "%s" "$1$branchName$s"
+    else
+        return
+    fi
+}
+
+function __error_prompt() {
   if [[ $? == 0 ]]; then
-    printf "${RESET}${BOLD}[${GREEN}^.^${RESET}${BOLD}]${RESET}"
+    printf "${COLOR_RESET}${COLOR_BOLD}[${COLOR_GREEN}^.^${COLOR_RESET}${COLOR_BOLD}]${COLOR_RESET}"
   else
-    printf "${RESET}${BOLD}[${RED}O.o${RESET}${BOLD}]${RESET}"
+    printf "${COLOR_RESET}${COLOR_BOLD}[${COLOR_RED}O.o${COLOR_RESET}${COLOR_BOLD}]${COLOR_RESET}"
   fi
 }
 
-__time_ps1() {
-  printf "${RESET}${BOLD}[$(date +%H:%M)]${RESET}"
-}
+# prompt
+PS1="\[${COLOR_RESET}\]\n"
+PS1+="\$(__error_prompt)"
+PS1+=" \[${COLOR_BOLD}\]\[${COLOR_ORANGE}\]\u\[${COLOR_RESET}\]"
+PS1+=" at \[${COLOR_BOLD}\]\[${COLOR_YELLOW}\]\h\[${COLOR_RESET}\]"
+PS1+=" in \[${COLOR_BOLD}\]\[${COLOR_GREEN}\]\w\[${COLOR_RESET}\]"
+PS1+="\$(__git_prompt \" on \[${COLOR_BOLD}\]\[${COLOR_BLUE}\]\")\[${COLOR_RESET}\]"
+PS1+="\n\[${COLOR_BOLD}\]\$ \[${COLOR_RESET}\]"
+export PS1
 
-GIT_PS1_SHOWDIRTYSTATE=x
-GIT_PS1_SHOWSTASHSTATE=x
-GIT_PS1_SHOWUNTRACKEDFILES=x
-GIT_PS1_SHOWUPSTREAM="auto"
-GIT_PS1_DESCRIBE_STYLE=branch
-GIT_PS1_SHOWCOLORHINTS=x
-GIT_PS1_STATESEPARATOR=' ('
+PS2="\[${COLOR_RESET}\]\[${COLOR_BOLD}\]> \[${COLOR_RESET}\]"
+export PS2
 
-GIT_PS1_PC_START="\n╭╼ $(__err_ps1) \u@\h:\w on"
-GIT_PS1_PC_END="\n╰──╼ "
-GIT_PS1_PC_PRINTF_FORMAT=' %s)'
-
-PROMPT_COMMAND='\
-  __git_ps1\
-  "${GIT_PS1_PC_START}"\
-  "${GIT_PS1_PC_END}"\
-  "${GIT_PS1_PC_PRINTF_FORMAT}"'
+# sync history in every terminal on every command executed
+# http://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
