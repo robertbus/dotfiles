@@ -1,0 +1,35 @@
+# EditorConfig (http://EditorConfig.org)
+
+# This is the top-most EditorConfig file, stop looking for a parent file.
+root = true
+
+# For every file
+[*]
+
+# Indentation Style
+# Possible values: tab, space
+indent_style = space
+
+# Indentation Size (in single-spaced characters)
+# Possible values: an integer, tab
+indent_size = 2
+
+# Width of a single tabstop character
+# Possible values: a positive integer (defaults indent_size when indent_size is a number)
+#tab_width
+
+# Line ending file format (Unix, DOS, Mac)
+# Possible values: lf, crlf, cr
+end_of_line = lf
+
+# File character encoding
+# Possible values: latin1, utf-8, utf-16be, utf-16le
+charset = utf-8
+
+# Denotes whether whitespace is allowed at the end of lines
+# Possible values: true, false
+trim_trailing_whitespace = true
+
+# Denotes whether file should end with a newline
+# Possible values: true, false
+insert_final_newline = true
