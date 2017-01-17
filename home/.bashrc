@@ -8,23 +8,19 @@ shopt -s cdspell
 shopt -s checkwinsize
 shopt -s cmdhist
 shopt -s extdebug
-#gnu_errfmt     	off
 shopt -s histappend
 
 # history
 HISTCONTROL=ignoredups:ignorespace:erasedups
 HISTSIZE=2000
 HISTFILESIZE=2000
-HISTIGNORE=history:ll:cd:shopt:exit:pwd
+HISTIGNORE="!(+(*\ *))"    # ignore all commands with no params
 
 # set PATH to include user's private bin folder if it exists
 [[ -d "${HOME}/bin" ]] && PATH="${HOME}/bin:${PATH}"
 
-# Includes (i.e. sources) file if it exists.
-# $1 - file to include
-function include() {
-  [[ -f "${1}" ]] && source "${1}"
-}
+# .bash_functions (things after this point will not work without this)
+[[ -f "${HOME}/.bash_functions" ]] && source "${HOME}/.bash_functions"
 
 # Linux specific includes
 if [[ "$(uname)" == "Linux" ]]; then
@@ -48,7 +44,6 @@ fi
 #include "${HOME}/.git-prompt.sh "
 #include "${HOME}/.git-completion.bash"
 include "${HOME}/.term_colors"
-include "${HOME}/.bash_functions"
 include "${HOME}/.bash_aliases"
 include "${HOME}/.bash_work"
 include "${HOME}/.bash_prompt"

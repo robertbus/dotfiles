@@ -3,7 +3,7 @@
 alias grep='grep --color=auto'
 
 alias ls='ls -G'
-alias ll='ls -al'
+alias ll='ls -alh'
 alias l='ll'
 
 alias mkdir='mkdir -p'
