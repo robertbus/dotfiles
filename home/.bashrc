@@ -23,8 +23,8 @@ HISTCONTROL=ignoredups:ignorespace:erasedups
 HISTSIZE=2000
 # The maximum number of lines contained in the history file.
 HISTFILESIZE=100000
-# Commands to be ignored.
-HISTIGNORE="&:cd:ls*:exit:pwd:git status:[ \t]*"
+# Commands to be ignored from history.
+HISTIGNORE='cd:l[ls]:history:exit:pwd'
 
 # Timestamp.
 HISTTIMEFORMAT='%F %T '
