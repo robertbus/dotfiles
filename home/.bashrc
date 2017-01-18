@@ -3,18 +3,31 @@
 # if not running interactively, don't do anything
 [[ -z "${PS1}" ]] && return
 
-# shopt
+### shopt
+# Correct minor  errors  in  the  spelling of a directory component in a cd command.
 shopt -s cdspell
+# Fix terminal after resizing it.
+# http://unix.stackexchange.com/questions/61584/how-to-solve-the-issue-that-a-terminal-screen-is-messed-up-usually-after-a-res
 shopt -s checkwinsize
+# Save all lines of a multiple-line command in the same history entry. This  allows  easy  re-editing  of multi-line commands.
 shopt -s cmdhist
+# Turn on extended debugging mode (i.e. give as much as context if something blows up).
 shopt -s extdebug
-shopt -s histappend
 
-# history
+### history
+# Append the history list to HISTFILE when the shell exits, rather than overwriting it.
+shopt -s histappend
+# Ignore duplication of previous history entry, ignore commands beginning with space, erase all duplicates.
 HISTCONTROL=ignoredups:ignorespace:erasedups
+# The number of commands to remember in the command history (in a single shell).
 HISTSIZE=2000
-HISTFILESIZE=2000
-HISTIGNORE="!(+(*\ *))"    # ignore all commands with no params
+# The maximum number of lines contained in the history file.
+HISTFILESIZE=100000
+# Commands to be ignored.
+HISTIGNORE="&:cd:ls*:exit:pwd:git status:[ \t]*"
+
+# Timestamp.
+HISTTIMEFORMAT='%F %T '
 
 # set PATH to include user's private bin folder if it exists
 [[ -d "${HOME}/bin" ]] && PATH="${HOME}/bin:${PATH}"
