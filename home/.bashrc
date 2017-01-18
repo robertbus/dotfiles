@@ -11,6 +11,8 @@ shopt -s cdspell
 shopt -s checkwinsize
 # Save all lines of a multiple-line command in the same history entry. This  allows  easy  re-editing  of multi-line commands.
 shopt -s cmdhist
+# Include filenames beginning with a `.' in the results of pathname expansion.
+shopt -s dotglob
 # Turn on extended debugging mode (i.e. give as much as context if something blows up).
 shopt -s extdebug
 
