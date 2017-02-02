@@ -1,5 +1,7 @@
 # TERM colors
 
+TERM=xterm-256color
+
 COLOR_RESET=$(tput sgr0)
 COLOR_BOLD=$(tput bold)
 
