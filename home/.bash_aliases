@@ -29,3 +29,5 @@ alias w.lon='curl wttr.in/london'
 
 # git
 #alias git_branch_local_cleanup='git branch --merged | grep -E -v 'master$|develop$' | xargs git branch -d'
+alias glo="git log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short"
+alias glop="git log --pretty=format:'%C(yellow)%h|%Cred%ad|%Cblue%an|%Cgreen%d %Creset%s' --date=short | column -t -s'|'"
