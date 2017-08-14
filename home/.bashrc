@@ -50,9 +50,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
   include "${HOME}/.iterm2_shell_integration.bash"
 
   # homeshick
-  export HOMESHICK_DIR=/usr/local/opt/homeshick
-  include "/usr/local/opt/homeshick/homeshick.sh"
-  include "/usr/local/opt/homeshick/etc/bash_completion.d/homeshick-completion.bash"
+  export HOMESHICK_DIR=${HOME}/.homesick/repos/homeshick
+  include "${HOME}/.homesick/repos/homeshick/homeshick.sh"
+  include "${HOME}/.homesick/repos/homeshick/completions/homeshick-completion.bash"
 fi
 
 # generic includes
