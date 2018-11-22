@@ -60,8 +60,8 @@ fi
 
 # generic includes
 #include "${HOME}/.git-prompt.sh "
-include "${HOME}/.git-completion.bash"
+#include "${HOME}/.git-completion.bash"
 include "${HOME}/.term_colors"
 include "${HOME}/.bash_aliases"
-include "${HOME}/.bash_work"
+#include "${HOME}/.bash_work"
 include "${HOME}/.bash_prompt"
