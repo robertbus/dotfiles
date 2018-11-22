@@ -1,7 +1,7 @@
 alias grep 'grep --color=auto'
 
-alias ls 'ls -G'
-alias ll 'ls -alh'
+alias ls 'ls -G --color=auto'
+alias ll 'ls -alh --color=auto'
 alias l 'll'
 alias lsd 'ls -l | grep "^d"'
 
