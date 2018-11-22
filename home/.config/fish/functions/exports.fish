@@ -1,4 +1,5 @@
 # language
+set -x LANGUAGE 'en_GB.UTF-8'
 set -x LANG 'en_GB.UTF-8'
 set -x LC_COLLATE 'en_GB.UTF-8'
 set -x LC_CTYPE 'en_GB.UTF-8'
