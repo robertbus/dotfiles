@@ -29,3 +29,6 @@ alias glo "git log --pretty=format:'%C(magenta)%h %C(green)%ad %C(blue)%an%C(red
 
 alias df 'df -h'
 alias du 'du -h'
+
+alias dive 'docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive'
+
