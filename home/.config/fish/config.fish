@@ -9,3 +9,7 @@ test -e "$HOME/.homesick/repos/homeshick/homeshick.fish" ; and source "$HOME/.ho
 test -e "$HOME/.homesick/repos/homeshick/completions/homeshick.fish" ; and source "$HOME/.homesick/repos/homeshick/completions/homeshick.fish"
 
 set -g fish_prompt_pwd_dir_length 0
+
+# AWS CLI autocompletion
+test -x (which aws_completer); and complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
+
